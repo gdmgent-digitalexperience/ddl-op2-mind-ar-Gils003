@@ -1,22 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DDL OP 2 _ Mind AR Roger That</title>
-    <link rel="stylesheet" href="./css/main.css">
-    <!--test-->
-</head>
-<body>
-    
-    <h1>Roger that</h1>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-face-aframe.prod.js"></script>
+  </head>
+  <body>
 
-    <nav>
-        <ul>
-            <li> <a href="./index.html">Home</a> </li>
-            <li> <a href="./image.html">Image Tracking</a> </li>
-            <li> <a href="./face.html">Face Tracking</a> </li>
-        </ul>
-    </nav>
-</body>
+    <button class="switch-button" id="next-button">
+      SWITCH
+    </button>
+
+    <a-assets>
+      <a-asset-item
+        id="finn"
+        src="./assets/finn_adventure_time.glb"> 
+      </a-asset-item>
+    </a-assets>
+
+    <a-scene
+      mindar-face
+      embedded
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
+      vr-mode-ui="enabled: false"
+      device-orientation-permission-ui="enabled: false"
+    >
+      <a-camera active="false" position="0 0 0"></a-camera>
+
+    <a-entity mindar-face-target="anchorIndex: 168">
+      <a-gltf-model
+          position="0 0 0" 
+          rotation="0 0 0" 
+          scale="1 1 1"
+           src="#finn">
+      </a-gltf-model>
+    </a-entity>
+
+    </a-scene>
+  </body>
 </html>
