@@ -12,7 +12,7 @@
 <body>
     
     <a-scene 
-       mindar-image="imageTargetSrc: ./assets/targets.mind" 
+       mindar-image="imageTargetSrc: ./assets/targets.mind;  maxTrack: 4"
        color-space="sRGB" 
        renderer="colorManagement: true, physicallyCorrectLights" 
        device-orientation-permission-ui="enabled: false"
@@ -30,6 +30,10 @@
 
           <a-entity mindar-image-target="targetIndex : 2">
             <a-box position="0 0 0" color="blue" opacity="0.4"></a-box>
+        </a-entity>
+
+        <a-entity mindar-image-target="targetIndex : 3">
+            <a-box position="0 0 0" color="orange" opacity="0.4"></a-box>
         </a-entity>
 
 
