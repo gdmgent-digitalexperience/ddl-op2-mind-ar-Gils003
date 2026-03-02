@@ -13,41 +13,7 @@
     <button class="switch-button" id="next-button">
       SWITCH
     </button>
-    <script>// Get references to DOM elements
-const switchButton = document.getElementById("next-button");
-const studioMarker = document.getElementById("studio-marker");
-const toyCar = document.getElementById("toycar");
-const logo = document.getElementById("ir-logo");
-const sceneEl = document.querySelector("#ar-scene");
 
-// Wait for AR scene to be ready
-sceneEl.addEventListener("arReady", () => {
-
-  // Track visibility state of toy car
-  let showToycar = false;
-
-  // Initialize toy car as hidden
-  toyCar.setAttribute("visible", showToycar);
-
-  // Show button when marker is detected
-  studioMarker.addEventListener("targetFound", () => {
-    switchButton.style.display = "block";
-  });
-
-  // Hide button when marker is lost
-  studioMarker.addEventListener("targetLost", () => {
-    switchButton.style.display = "none";
-  });
-
-  // Toggle between toy car and logo visibility
-  switchButton.addEventListener("click", () => {
-    showToycar = !showToycar;
-    toyCar.setAttribute("visible", showToycar);
-    logo.setAttribute("visible", !showToycar);
-  });
-
-});
-</script>
 
     <a-assets>
       <a-asset-item
@@ -60,7 +26,7 @@ sceneEl.addEventListener("arReady", () => {
     </a-asset-item>
     </a-assets>
 
-    <a-scene
+    <a-scene id="ar-scene"
       mindar-face
       embedded
       color-space="sRGB"
@@ -70,14 +36,14 @@ sceneEl.addEventListener("arReady", () => {
     >
       <a-camera active="false" position="0 0 0"></a-camera>
 
-    <a-entity mindar-face-target="anchorIndex: 168">
-      <a-gltf-model
+    <a-entity id="face-target" mindar-face-target="anchorIndex: 168">
+      <a-gltf-model id="glasses-model"
           position="0 0 0" 
           rotation="0 0 0" 
           scale="0.5 0.5 0.5"
            src="#glasses">
       </a-gltf-model>
-      <a-gltf-model
+      <a-gltf-model id="finn-model"
           position="0 0 0" 
           rotation="0 0 0" 
           scale="1 1 1"
@@ -88,10 +54,44 @@ sceneEl.addEventListener("arReady", () => {
 
     </a-scene>
     
+    <script>
+// Get references to DOM elements
+const switchButton = document.getElementById("next-button");
+const faceTarget = document.getElementById("face-target");
+const glassesModel = document.getElementById("glasses-model");
+const finnModel = document.getElementById("finn-model");
+const sceneEl = document.querySelector("#ar-scene");
+if (!sceneEl) console.warn('AR scene element not found');
+
+// Wait for AR scene to be ready
+sceneEl.addEventListener("arReady", () => {
+
+  // Track which model is currently visible
+  let showingGlasses = true;
+
+  // Initialize models visibility
+  glassesModel.setAttribute("visible", showingGlasses);
+  finnModel.setAttribute("visible", !showingGlasses);
+
+  // Show button when face target is detected
+  faceTarget.addEventListener("targetFound", () => {
+    switchButton.style.display = "block";
+  });
+
+  // Hide button when face target is lost
+  faceTarget.addEventListener("targetLost", () => {
+    switchButton.style.display = "none";
+  });
+
+  // Toggle between the two models on button click
+  switchButton.addEventListener("click", () => {
+    showingGlasses = !showingGlasses;
+    console.log('toggle clicked, now showingGlasses=', showingGlasses);
+    glassesModel.setAttribute("visible", showingGlasses);
+    finnModel.setAttribute("visible", !showingGlasses);
+  });
+
+});
+</script>
   </body>
 </html>
-<!DOCTYPE html>
-<html lang="en">
-
-
-   
